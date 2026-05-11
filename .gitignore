@@ -8,3 +8,5 @@ build/
 .DS_Store
 .playwright-mcp/
 dist/
+.claude/
+.github/homepage.jpg
