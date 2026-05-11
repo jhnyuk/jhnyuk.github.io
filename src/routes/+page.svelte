@@ -50,7 +50,7 @@
 			{/each}
 			<span class="text-surface1 text-xs">|</span>
 			<a
-				href="/about"
+				href="/career"
 				class="group text-subtext1 hover:text-accent inline-flex items-center gap-1 text-sm transition-colors duration-200"
 			>
 				<span>More about me</span>
