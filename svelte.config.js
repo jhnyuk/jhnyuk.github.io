@@ -126,6 +126,9 @@ const config = {
 			precompress: false,
 			strict: true
 		}),
+		prerender: {
+			handleMissingId: 'warn'
+		},
 		alias: {
 			$components: 'src/components',
 			$utils: 'src/lib/utils',
