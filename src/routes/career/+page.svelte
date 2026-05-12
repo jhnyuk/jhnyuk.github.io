@@ -1,6 +1,20 @@
 <script lang="ts">
-	import { IconBriefcase, IconBrandGithub, IconBrandLinkedin, IconMail } from '@tabler/icons-svelte';
-	import Site from '$lib/config/common';
+	import { IconCode, IconTestPipe } from '@tabler/icons-svelte';
+	import { page } from '$app/stores';
+	import { tick } from 'svelte';
+
+	let activeTab: 'dev' | 'qa' = $state('dev');
+
+	$effect(() => {
+		const tab = $page.url.searchParams.get('tab');
+		if (tab === 'qa' || tab === 'dev') activeTab = tab;
+		tick().then(() => {
+			const hash = window.location.hash;
+			if (hash) {
+				document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			}
+		});
+	});
 </script>
 
 <svelte:head>
@@ -10,255 +24,373 @@
 
 <div class="mx-auto max-w-4xl space-y-16 px-4 py-8 md:px-6">
 
-	<!-- Header -->
-	<section class="space-y-4">
-		<h1 class="flex items-center gap-3 text-3xl font-bold md:text-4xl">
-			<IconBriefcase size={32} class="text-accent" />
-			Career
-		</h1>
-		<div class="flex flex-wrap gap-3 text-sm">
-			<a href={Site.out.github} target="_blank" rel="noopener noreferrer"
-				class="hover:text-accent inline-flex items-center gap-1.5 transition-colors">
-				<IconBrandGithub size={15} /> GitHub
-			</a>
-			<span class="text-surface1">·</span>
-			<a href={Site.out.linkedin} target="_blank" rel="noopener noreferrer"
-				class="hover:text-accent inline-flex items-center gap-1.5 transition-colors">
-				<IconBrandLinkedin size={15} /> LinkedIn
-			</a>
-			<span class="text-surface1">·</span>
-			<a href={Site.out.email}
-				class="hover:text-accent inline-flex items-center gap-1.5 transition-colors">
-				<IconMail size={15} /> debussysuh@gmail.com
-			</a>
-		</div>
-	</section>
+	<!-- ─── Career ─── -->
+	<section class="space-y-8">
+		<h2 class="text-2xl font-bold">Career</h2>
 
-	<!-- ─── Payday ─── -->
-	<article class="space-y-10">
+		<!-- Tabs -->
+		<div class="border-surface0 flex gap-1 rounded-lg border p-1 w-fit">
+			<button
+				onclick={() => (activeTab = 'dev')}
+				class="inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-all duration-200 {activeTab === 'dev'
+					? 'bg-accent/20 text-accent ring-accent/40 ring-1'
+					: 'text-subtext1 hover:text-text'}"
+			>
+				<IconCode size={15} />
+				Development
+			</button>
+			<button
+				onclick={() => (activeTab = 'qa')}
+				class="inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-all duration-200 {activeTab === 'qa'
+					? 'bg-accent/20 text-accent ring-accent/40 ring-1'
+					: 'text-subtext1 hover:text-text'}"
+			>
+				<IconTestPipe size={15} />
+				QA
+			</button>
+		</div>
+
+		<!-- ── Dev Tab ── -->
+		{#if activeTab === 'dev'}
+		<div class="space-y-12">
+
+			<!-- Payday Dev -->
+			<article id="payday" class="space-y-8">
+				<header class="border-surface0 border-b pb-4">
+					<div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+						<div>
+							<h3 class="text-text text-xl font-bold">Web Developer</h3>
+							<p class="text-accent font-medium">Payday</p>
+						</div>
+						<span class="text-overlay1 text-sm whitespace-nowrap">Jul 2024 – Aug 2025</span>
+					</div>
+					<p class="text-subtext0 mt-2 text-sm leading-relaxed">
+						사내 시스템 개발 및 급여·연말정산·인사 관리 서비스의 전산 시스템 유지보수, QA 수행
+					</p>
+				</header>
+
+				<!-- AI 평가 검증 시스템 -->
+<section class="space-y-4">
+	<h4 class="text-text text-lg font-semibold">AI 평가 검증 시스템 프론트엔드 개발</h4>
+	<ul class="space-y-4">
+		<li class="space-y-1">
+			<p class="text-text font-medium">▸ 테스트 케이스 관리 UI 구현</p>
+			<p class="text-subtext0 text-sm leading-relaxed">
+				질문·예상답변 기반 테스트 케이스 생성, 목록 관리, 상세 패널, 편집 모달 등 복합 UI를 React 기반으로 구현했습니다. 체크박스 다중 선택, 검증/수정/삭제 액션, 토스트 메시지 시스템을 적용해 사용자 피드백 흐름을 개선했습니다.
+			</p>
+		</li>
+
+		<li class="space-y-1">
+			<p class="text-text font-medium">▸ AI 검증 상태 비동기 처리</p>
+			<p class="text-subtext0 text-sm leading-relaxed">
+				AI 검증 요청 이후 대기/검증중/완료/실패 상태를 polling 기반으로 조회하고 실시간 UI에 반영했습니다. 검증 완료된 테스트만 목록에 반영되도록 상태 동기화 로직을 구현했습니다.
+			</p>
+		</li>
+
+		<li class="space-y-1">
+			<p class="text-text font-medium">▸ AI 답변 비교 및 이어서 테스트 기능 구현</p>
+			<p class="text-subtext0 text-sm leading-relaxed">
+				예상 답변과 AI 응답 결과를 비교할 수 있는 상세 인터페이스를 구현했습니다. 기존 검증 내역을 기반으로 이어서 테스트할 수 있는 대화형 모달 기능도 함께 개발했습니다.
+			</p>
+		</li>
+
+		<li class="space-y-1">
+			<p class="text-text font-medium">▸ 업로드 알림 및 상태 표시 UX 개선</p>
+			<p class="text-subtext0 text-sm leading-relaxed">
+				다수 테스트 케이스의 진행 상태를 업로드 알림 패널에서 관리하고, 상태별 아이콘 및 조건부 렌더링을 적용해 진행 상황을 직관적으로 표시했습니다.
+			</p>
+		</li>
+	</ul>
+</section>
+
+<hr class="border-surface0" />
+
+<!-- 실시간 AI Chatbot -->
+<section class="space-y-4">
+	<h4 class="text-text text-lg font-semibold">실시간 AI Chatbot 프론트엔드 개발</h4>
+
+	<ul class="space-y-4">
+		<li class="space-y-1">
+			<p class="text-text font-medium">▸ WebSocket 기반 실시간 채팅 구현</p>
+			<p class="text-subtext0 text-sm leading-relaxed">
+				WebSocket 기반 양방향 실시간 채팅 인터페이스를 구현했습니다. AI 응답을 스트리밍 방식으로 처리하고 실시간 타이핑 효과를 적용했습니다.
+			</p>
+		</li>
+
+		<li class="space-y-1">
+			<p class="text-text font-medium">▸ 채팅 상태 및 히스토리 관리</p>
+			<p class="text-subtext0 text-sm leading-relaxed">
+				Redux 기반으로 채팅 메시지, 사용자 입력, 로딩/에러 상태를 관리했습니다. 채팅 히스토리 정렬 및 최근 메시지 유지 로직을 구현했습니다.
+			</p>
+		</li>
+
+		<li class="space-y-1">
+			<p class="text-text font-medium">▸ 실시간 UI 상태 처리 및 예외 대응</p>
+			<p class="text-subtext0 text-sm leading-relaxed">
+				메시지 상태에 따라 로딩/에러/응답 컴포넌트를 조건부 렌더링하고, 채팅 데이터 변경 시 자동 스크롤 기능을 구현했습니다. WebSocket 연결 종료 및 오류 발생 시 재연결/재시도 로직을 적용했습니다.
+			</p>
+		</li>
+
+		<li class="space-y-1">
+			<p class="text-text font-medium">▸ 실시간 이벤트 흐름 분석 및 문서화</p>
+			<p class="text-subtext0 text-sm leading-relaxed">
+				기존 WebSocket 서버 로직을 분석하고 connect/select/send/close 이벤트 흐름을 시퀀스 다이어그램으로 문서화했습니다. 서버-클라이언트 간 메시지 처리 구조를 파악하여 UI 상태 흐름과 연결했습니다.
+			</p>
+		</li>
+	</ul>
+</section>
+
+<hr class="border-surface0" />
+
+<!-- 사내 업무 이력 관리 시스템 -->
+<section class="space-y-4">
+	<h4 class="text-text text-lg font-semibold">사내 업무 이력 관리 시스템 개발</h4>
+
+	<ul class="space-y-4">
+		{#each [
+			{
+				title: '작업 이력 통합 관리 구조 설계',
+				body: 'Git 커밋 로그·DB 로그에 분산되던 작업 이력을 요청 단위로 통합 관리할 수 있는 구조를 설계했습니다. 작업 구분, Git 이슈·커밋 링크, DB 쿼리, 배포 일시, 참고 문서, 태그 등을 하나의 화면에서 관리할 수 있도록 구현했습니다.'
+			},
+			{
+				title: '데이터 구조 변환 및 상태 동기화 구현',
+				body: '저장 데이터와 조회 DTO 간 구조 차이를 해결하기 위해 타입별 그룹화·역변환 로직을 구현했습니다. 검증된 변경 사항만 저장되도록 상태 동기화 구조를 설계했습니다.'
+			},
+			{
+				title: '자동 저장 및 변경 감지 최적화',
+				body: '상세 화면 닫기, 외부 클릭, 페이지 이동 시 변경 사항이 자동 저장되도록 구현했습니다. <code>useRef</code> 기반 초기값 비교 방식으로 실제 변경 여부를 감지하여 불필요한 API 호출을 최소화했습니다.'
+			},
+			{
+				title: '편집 UX 및 권한 분리 구현',
+				body: '더블 클릭 편집 모드, 외부 클릭 자동 저장, Ctrl+클릭 링크 이동 기능을 구현했습니다. 요청 수신자 기준으로 전산팀 여부를 판단하여 작업 이력 패널 노출 권한을 분리했습니다.'
+			},
+			{
+				title: 'Redux 상태 업데이트 타이밍 이슈 해결',
+				body: 'Tag·Type 선택 직후 저장 시 이전 값이 API로 전달되는 문제를 분석했습니다. Redux 상태 업데이트 완료 이후 저장 로직이 실행되도록 의존성 구조를 재설계하여 데이터 정합성을 개선했습니다.'
+			},
+			{
+				title: '레이아웃 및 렌더링 최적화',
+				body: '캘린더 open 상태에 따른 body overflow 제어로 스크롤 레이아웃 깨짐 현상을 해결했습니다. SVG import 방식을 적용해 반복 리소스 요청을 제거하고 렌더링 성능을 개선했습니다.'
+			}
+		] as item (item.title)}
+			<li class="space-y-1">
+				<p class="text-text font-medium">▸ {item.title}</p>
+				<p class="text-subtext0 text-sm leading-relaxed">
+					{@html item.body
+						.replace(/<code>/g, '<code class="text-accent bg-surface0 rounded px-1 py-0.5 text-xs">')
+						.replace(/<\/code>/g, '</code>')}
+				</p>
+			</li>
+		{/each}
+	</ul>
+</section>
+
+<hr class="border-surface0" />
+
+<!-- HR 유지보수 -->
+<section class="space-y-4">
+	<h4 class="text-text text-lg font-semibold">전산 HR 시스템 유지보수 및 기능 개발</h4>
+
+	<ul class="space-y-4">
+		<li class="space-y-1">
+			<p class="text-text font-medium">▸ iframe 기반 멀티 프레임 구조 유지보수</p>
+			<p class="text-subtext0 text-sm leading-relaxed">
+				부모 프레임과 iframe 기반 자식 프로젝트 간 <code class="text-accent bg-surface0 rounded px-1 py-0.5 text-xs">postMessage</code> 통신 구조를 분석하고 유지보수했습니다. sessionId, userInfo 등 인증·세션 데이터 흐름 관련 이슈를 처리했습니다.
+			</p>
+		</li>
+
+		<li class="space-y-1">
+			<p class="text-text font-medium">▸ 연봉계약서·제증명 서식 기능 개발</p>
+			<p class="text-subtext0 text-sm leading-relaxed">
+				<code class="text-accent bg-surface0 rounded px-1 py-0.5 text-xs">HtmSalaryLetterParser</code>
+				구조를 분석하고 DB 데이터 연동 및 연도·서식 추가 기능을 개발했습니다. 서버 환경별 분기 로직을 반영하여 배포했습니다.
+			</p>
+		</li>
+
+		<li class="space-y-1">
+			<p class="text-text font-medium">▸ 사내 요청 시스템 프론트엔드 개발</p>
+			<p class="text-subtext0 text-sm leading-relaxed">
+				요청 등록·진행·완료 흐름의 프론트엔드를 구현했습니다. 요청 상태 관리, 목록 필터링, 최근 7일 통계 그래프, 즐겨찾기 기능 등을 개발했습니다.
+			</p>
+		</li>
+	</ul>
+</section>
+
+<hr class="border-surface0" />
+
+<!-- 문서화 -->
+<section class="space-y-4">
+	<h4 class="text-text text-lg font-semibold">전산 HR 시스템 문서화</h4>
+
+	<ul class="space-y-4">
+		<li class="space-y-1">
+			<p class="text-text font-medium">▸ 레거시 시스템 구조 문서화</p>
+			<p class="text-subtext0 text-sm leading-relaxed">
+				Java 기반 HTMS 시스템 구조를 분석하고 코드·API·DB 구조를 문서화했습니다. Servlet → Model → DB → JSP/JS 흐름과 주요 클래스 역할을 정리했습니다.
+			</p>
+		</li>
+
+		<li class="space-y-1">
+			<p class="text-text font-medium">▸ 아키텍처 시각화 및 운영 위키 구축</p>
+			<p class="text-subtext0 text-sm leading-relaxed">
+				로그인, 세션, iframe 데이터 전달 등 시스템 흐름을 Figma 기반 플로우차트·시퀀스 다이어그램으로 시각화했습니다. 반복 발생하는 전산 요청 처리 절차를 위키로 표준화하여 운영 효율을 개선했습니다.
+			</p>
+		</li>
+	</ul>
+</section>
+			</article>
+		</div>
+
+		<!-- ── QA Tab ── -->
+		{:else}
+			<div class="space-y-12">
+
+	<!-- Payday -->
+	<article id="payday-qa" class="space-y-6">
 		<header class="border-surface0 border-b pb-4">
 			<div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
 				<div>
-					<h2 class="text-text text-2xl font-bold">Full-stack Developer & QA Engineer</h2>
+					<h3 class="text-text text-xl font-bold">QA Engineer</h3>
 					<p class="text-accent font-medium">Payday</p>
 				</div>
 				<span class="text-overlay1 text-sm whitespace-nowrap">Jul 2024 – Aug 2025</span>
 			</div>
-			<p class="text-subtext0 mt-2 text-sm leading-relaxed">
-				급여·연말정산·인사 관리 SaaS 서비스의 전산 시스템 유지보수 및 사내 도구 개발, QA 수행
-			</p>
+			<p class="text-subtext0 mt-2 text-sm">연말정산·전산 시스템 QA</p>
 		</header>
 
-		<!-- 사내 업무 이력 관리 시스템 -->
 		<section class="space-y-4">
-			<h3 class="text-text text-xl font-semibold">사내 업무 이력 관리 시스템</h3>
-			<p class="text-subtext0 leading-relaxed">
-				기존에는 전산 요청 처리 완료 후 개발 이력이 Git 커밋 로그·DB 로그에만 분산 저장되어, 어떤 요청에 어떤 작업이 이루어졌는지 추적이 불가능한 상태였습니다. 요청 단위로 작업 이력을 통합 관리하고 자동 저장하는 시스템을 기획부터 개발까지 주도했습니다.
-			</p>
+			<h4 class="text-text text-lg font-semibold">연말정산 및 급여 시스템 QA</h4>
 
 			<ul class="space-y-4">
 				<li class="space-y-1">
-					<p class="text-text font-medium">▸ 작업 이력 통합 기록 구조 설계</p>
+					<p class="text-text font-medium">▸ QA 프로세스 및 테스트 체계 구축</p>
 					<p class="text-subtext0 text-sm leading-relaxed">
-						작업 구분(Front/Back/DB/디자인), Git 이슈·커밋 링크, DB 쿼리, 배포 일시, 참고 문서, 기타 메모, 태그(HTMS/연말정산 등) 항목을 요청 단위로 통합 관리하는 구조를 설계했습니다. 저장 시 <code class="text-accent bg-surface0 rounded px-1 py-0.5 text-xs">htmItemList</code> 배열과 조회 시 <code class="text-accent bg-surface0 rounded px-1 py-0.5 text-xs">RbmWorkHistoryItemDTO</code> 구조가 달라 타입별(ISSUE/QUERY/COPY/REFERENCE/NOTICE) 그룹화·역변환 로직을 직접 설계하여 구현했습니다.
+						별도의 QA 문서 및 테스트 체계가 없는 환경에서 Notion 기반 TC 시트, 버그 리포팅 양식, 운영 기준 문서를 직접 설계·구축했습니다. 구축한 QA 프로세스는 이후 팀 내 공통 기준으로 활용되었습니다.
 					</p>
 				</li>
-				<li class="space-y-1">
-					<p class="text-text font-medium">▸ 자동 저장 및 변경 감지 구현</p>
-					<p class="text-subtext0 text-sm leading-relaxed">
-						상세 화면 닫기·다른 항목 이동·외부 클릭·브라우저 닫기 시점에 저장 API를 일괄 호출하도록 구현했습니다. <code class="text-accent bg-surface0 rounded px-1 py-0.5 text-xs">useRef</code>로 초기 상태를 저장하고 현재값과 비교하여 변경된 경우에만 API를 호출해 불필요한 요청을 최소화했습니다. 저장 시 마지막 수정자·일시(<code class="text-accent bg-surface0 rounded px-1 py-0.5 text-xs">htmRegDate</code>, <code class="text-accent bg-surface0 rounded px-1 py-0.5 text-xs">htmRegSabun</code>)를 자동 표시하는 기능도 함께 구현했습니다.
-					</p>
-				</li>
-				<li class="space-y-1">
-					<p class="text-text font-medium">▸ 편집 모드 UX 구현</p>
-					<p class="text-subtext0 text-sm leading-relaxed">
-						더블 클릭 시 편집 모드로 전환되고, 외부 클릭 시 자동 저장 후 읽기 모드로 복귀하는 흐름을 구현했습니다. URL 입력값은 텍스트로 표시하되 Ctrl+클릭 시 새 탭으로 열리도록 처리했습니다. 배포 일시는 날짜(숫자 자동 포맷)·시간(콜론 자동 삽입) 입력 필드로 분리하여 입력 편의성을 높였습니다.
-					</p>
-				</li>
-				<li class="space-y-1">
-					<p class="text-text font-medium">▸ 권한 분리</p>
-					<p class="text-subtext0 text-sm leading-relaxed">
-						요청 수신자 사번을 기준으로 전산팀 여부를 판단하여 작업 이력 패널의 노출 여부를 제어했습니다. HR팀·경영팀 등 타 팀에는 화면이 노출되지 않도록 처리했습니다.
-					</p>
-				</li>
-				<li class="space-y-1">
-					<p class="text-text font-medium">▸ 트러블슈팅: 상태 업데이트 타이밍 문제</p>
-					<p class="text-subtext0 text-sm leading-relaxed">
-						Tag·Type 선택 후 저장 시 이전 값이 API로 전달되는 문제가 발생했습니다. Redux 상태 업데이트는 비동기이므로 <code class="text-accent bg-surface0 rounded px-1 py-0.5 text-xs">setTimeout</code>으로는 완료 시점을 보장할 수 없음을 파악하고, 상태가 확정된 이후 저장 로직이 실행되도록 의존성 구조를 재설계하여 해결했습니다.
-					</p>
-				</li>
-				<li class="space-y-1">
-					<p class="text-text font-medium">▸ 트러블슈팅: 변경 감지 오작동 및 빈 값 필터링</p>
-					<p class="text-subtext0 text-sm leading-relaxed">
-						<code class="text-accent bg-surface0 rounded px-1 py-0.5 text-xs">hasChanged</code> 상태가 입력 이벤트 발생 여부만 체크하여 실제 값 변경과 무관하게 저장 API가 호출되던 문제를, <code class="text-accent bg-surface0 rounded px-1 py-0.5 text-xs">useRef</code> 기반 초기값 비교 방식으로 교체하여 해결했습니다. 삭제하지 않은 빈 입력 필드가 API에 전송되던 문제는, 하위 컴포넌트의 <code class="text-accent bg-surface0 rounded px-1 py-0.5 text-xs">onDelete</code> 대신 저장 직전 부모 컴포넌트에서 빈 값을 필터링하도록 책임 위치를 상위로 이동하여 해결했습니다.
-					</p>
-				</li>
-				<li class="space-y-1">
-					<p class="text-text font-medium">▸ 트러블슈팅: 캘린더 스크롤 레이아웃 깨짐 및 SVG 반복 로딩</p>
-					<p class="text-subtext0 text-sm leading-relaxed">
-						캘린더가 열릴 때 <code class="text-accent bg-surface0 rounded px-1 py-0.5 text-xs">body overflow: auto → hidden</code> 전환으로 스크롤바가 사라지며 레이아웃이 틀어지는 현상을, 캘린더 open 상태 기반 overflow 복구 로직으로 해결했습니다. 편집 모드 전환 시마다 SVG 아이콘을 새로 불러오던 문제는 import 방식으로 일괄 변경하여 불필요한 리소스 요청을 제거했습니다.
-					</p>
-				</li>
-			</ul>
-		</section>
 
-		<hr class="border-surface0" />
+				<li class="space-y-1">
+					<p class="text-text font-medium">▸ 예외·경계값 기반 테스트 설계</p>
+					<p class="text-subtext0 text-sm leading-relaxed">
+						극단값, 누락값, 잘못된 형식 등 예외 시나리오 중심으로 테스트 케이스를 설계했습니다. 연말정산 시스템에 대해 블랙박스·화이트박스 테스트를 수행했습니다.
+					</p>
+				</li>
 
-		<!-- AI 평가 검증 시스템 -->
-		<section class="space-y-4">
-			<h3 class="text-text text-xl font-semibold">AI 평가 검증 시스템 프론트엔드 개발</h3>
-			<p class="text-subtext0 leading-relaxed">
-				사내 AI 챗봇의 답변 품질을 관리하기 위해, 사용자가 입력한 예상 답변과 실제 AI 답변을 비교·평가하는 관리 시스템의 프론트엔드를 단독으로 설계하고 개발했습니다.
-			</p>
-			<ul class="space-y-4">
 				<li class="space-y-1">
-					<p class="text-text font-medium">▸ 테스트 케이스 관리 화면 구현</p>
+					<p class="text-accent font-medium">▸ Critical 오류 발견 및 운영 리스크 대응</p>
 					<p class="text-subtext0 text-sm leading-relaxed">
-						테스트 케이스 목록·체크박스 다중 선택·상세 패널·편집 모달 등 복합 UI 상태를 React Hooks로 구조화했습니다. 전체 선택/개별 선택 토글, 검증·수정·삭제 액션 버튼, 토스트 메시지 시스템(전역 관리) 등을 구현하여 즉각적인 피드백을 제공했습니다.
+						Critical 2건 포함 핵심 오류 8건을 발견했으며, 연말정산 오픈 기간 중 결함 발견 → 핫픽스 배포 → 회귀 테스트 사이클을 반복 수행하며 서비스 안정화에 기여했습니다.
 					</p>
 				</li>
-				<li class="space-y-1">
-					<p class="text-text font-medium">▸ 검증 플로우 및 이어서 테스트 기능 구현</p>
-					<p class="text-subtext0 text-sm leading-relaxed">
-						질문 클릭 시 우측 상세 패널에서 예상 답변·AI 답변을 비교하고 검증 결과를 확인할 수 있는 인터페이스를 구현했습니다. 기존 검증 내역을 불러와 대화 형태로 이어서 테스트할 수 있는 모달 기능도 함께 개발했습니다.
-					</p>
-				</li>
-			</ul>
-		</section>
 
-		<hr class="border-surface0" />
-
-		<!-- 전산 HR 시스템 유지보수 -->
-		<section class="space-y-4">
-			<h3 class="text-text text-xl font-semibold">전산 HR 시스템 유지보수 및 기능 개발</h3>
-			<p class="text-subtext0 leading-relaxed">
-				인사·급여·근태·세금 계산·연봉계약서·제증명 등 다수의 HR 모듈을 유지보수하고 기능을 개선했습니다.
-			</p>
-			<ul class="space-y-4">
 				<li class="space-y-1">
-					<p class="text-text font-medium">▸ iframe 기반 멀티 프레임 아키텍처 유지보수</p>
+					<p class="text-text font-medium">▸ 반복 테스트 자동화</p>
 					<p class="text-subtext0 text-sm leading-relaxed">
-						부모 프레임(HTMS SpaceX)이 iframe을 통해 자식 프로젝트를 통합하는 구조를 분석하고, <code class="text-accent bg-surface0 rounded px-1 py-0.5 text-xs">postMessage</code> 기반의 세션·사용자 정보 전달 로직을 유지보수했습니다. 부모↔자식 간 sessionId, userInfo, menuNm 등의 데이터 흐름을 파악하여 인증 관련 이슈를 처리했습니다.
-					</p>
-				</li>
-				<li class="space-y-1">
-					<p class="text-text font-medium">▸ 연봉계약서·제증명 서식 개발 및 배포</p>
-					<p class="text-subtext0 text-sm leading-relaxed">
-						<code class="text-accent bg-surface0 rounded px-1 py-0.5 text-xs">HtmSalaryLetterParser</code> 키워드 치환 구조를 분석하여 DB 데이터 연동 및 연도·서식 추가 작업을 수행했습니다. 서버별 분기 로직을 반영하여 배포했습니다.
-					</p>
-				</li>
-				<li class="space-y-1">
-					<p class="text-text font-medium">▸ 사내 요청 시스템(CCM 후속) 프론트엔드 개발</p>
-					<p class="text-subtext0 text-sm leading-relaxed">
-						요청 등록·진행·완료 전 사이클 UI를 구현했습니다. 요청 목록 필터링·상태 관리(새요청→진행중→마무리→완료), 대시보드 시각화(최근 7일 그래프), 즐겨찾기 등 주요 기능을 개발했습니다.
-					</p>
-				</li>
-			</ul>
-		</section>
-
-		<hr class="border-surface0" />
-
-		<!-- 연말정산 QA -->
-		<section class="space-y-4">
-			<h3 class="text-text text-xl font-semibold">연말정산 및 급여 시스템 QA</h3>
-			<p class="text-subtext0 leading-relaxed">
-				연말정산 모바일·웹 서비스의 QA를 수행했습니다. 세액 계산 및 수당 지급 로직이 포함된 금융 도메인으로, 작은 계산 오류도 재무 리스크로 직결되는 환경이었습니다.
-			</p>
-			<ul class="space-y-4">
-				<li class="space-y-1">
-					<p class="text-text font-medium">▸ 테스트 프로세스 0부터 수립</p>
-					<p class="text-subtext0 text-sm leading-relaxed">
-						기존 QA 체계가 부재한 상태에서 QA 시트와 Notion 기반 테스트 프로세스를 직접 구축했습니다. 요구사항 기반 테스트 시나리오를 재정비하고, 세액 계산 로직을 화이트박스 관점으로 재검증하여 경계값·예외 케이스 중심의 TC를 설계했습니다.
-					</p>
-				</li>
-				<li class="space-y-1">
-					<p class="text-text font-medium">▸ 핵심 결함 발견 및 재무 리스크 차단</p>
-					<p class="text-subtext0 text-sm leading-relaxed">
-						Critical 2건 포함 핵심 오류 총 8건을 발견하여 수정 완료했습니다. 세액 계산 정확성 검증, 홈택스 간편화 정보 연동 데이터 정합성 확인을 통해 잠재적 재무 리스크를 사전에 차단했습니다.
-					</p>
-				</li>
-				<li class="space-y-1">
-					<p class="text-text font-medium">▸ 개발 친화적 이슈 리포팅</p>
-					<p class="text-subtext0 text-sm leading-relaxed">
-						DevTools 네트워크 탭을 활용하여 API 응답값·상태 코드(302/404/500) 기반으로 원인을 추정하고, 수정 방향까지 포함한 이슈를 작성했습니다. 디자이너·개발자와 우선순위를 협의하고, 릴리즈 전 잔여 이슈를 정리하여 배포 판단을 지원했습니다.
-					</p>
-				</li>
-			</ul>
-		</section>
-
-		<hr class="border-surface0" />
-
-		<!-- 전체 문서화 -->
-		<section class="space-y-4">
-			<h3 class="text-text text-xl font-semibold">전산 HR 시스템 전체 문서화</h3>
-			<p class="text-subtext0 leading-relaxed">
-				레거시 Java 기반 HTMS 전체 시스템을 약 1개월에 걸쳐 단독으로 문서화했습니다. 코드 파일·API·DB 구조를 전수 정리하고, 반복되는 전산 요청 처리 기준을 위키로 표준화하여 팀 내 온보딩 비용을 절감했습니다.
-			</p>
-			<ul class="space-y-4">
-				<li class="space-y-1">
-					<p class="text-text font-medium">▸ 아키텍처 시각화</p>
-					<p class="text-subtext0 text-sm leading-relaxed">
-						HTMS 시스템 전체 흐름(로그인 → 세션 → iframe 데이터 전달 → 각 모듈)을 Figma로 플로우차트·시퀀스 다이어그램 형태로 시각화했습니다.
-					</p>
-				</li>
-				<li class="space-y-1">
-					<p class="text-text font-medium">▸ 코드·DB·API 문서화</p>
-					<p class="text-subtext0 text-sm leading-relaxed">
-						Servlet(CPage) → Model → Tr(DB) → En(엔티티) → JSP/JS 레이어 구조 및 각 클래스 역할을 정리했습니다. 연봉계약서·급여명세서·제증명 등 주요 기능별 테이블 구조, 컬럼 정의, 연관 쿼리와 함께 주요 화면별 요청 파라미터·응답 구조·인증 흐름을 문서화했습니다.
-					</p>
-				</li>
-				<li class="space-y-1">
-					<p class="text-text font-medium">▸ 운영 위키 구축</p>
-					<p class="text-subtext0 text-sm leading-relaxed">
-						급여명세서 하단 문구 추가, 연봉계약서 연도·서식 추가, 제증명 서식 세팅 등 반복 발생하는 전산 요청 처리 절차를 단계별 체크리스트로 문서화하여 처리 기준을 표준화했습니다.
+						Cypress 기반으로 전산 ERP 로그인 및 업무 요청 게시판 등의 반복 테스트 자동화 스크립트를 작성해 반복 검증 시간을 절감했습니다.
 					</p>
 				</li>
 			</ul>
 		</section>
 	</article>
 
-	<!-- ─── Raonsecure ─── -->
-	<article class="space-y-6">
+	<!-- Raonsecure -->
+	<article id="raonsecure" class="space-y-6">
 		<header class="border-surface0 border-b pb-4">
 			<div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
 				<div>
-					<h2 class="text-text text-2xl font-bold">QA Intern</h2>
+					<h3 class="text-text text-xl font-bold">QA Intern</h3>
 					<p class="text-accent font-medium">Raonsecure</p>
 				</div>
 				<span class="text-overlay1 text-sm whitespace-nowrap">Dec 2025 – Feb 2026</span>
 			</div>
 			<p class="text-subtext0 mt-2 text-sm">RAON Metademy (Launcher / Web Admin) QA</p>
 		</header>
-		<ul class="text-subtext0 space-y-2 text-sm">
-			<li>• 39일간 빠른 릴리즈 환경에서 179건 등록·496건 대응</li>
-			<li>• 요구사항 기반 TC 100+ 설계·수행</li>
-			<li>• 결제 흐름 전 구간 시나리오 검증 — 실결제 후 구매 내역 미표시 결함 조기 발견</li>
-			<li>• DevTools·API 응답·예외 로그 기반 유사 장애 예방을 위한 TC 확장 수행</li>
-			<li>• 인증 우회·세션 쿠키 Secure 미설정 등 보안·접근제어 취약점 조기 발견</li>
-			<li>• Jira 이슈 구조화, Zephyr Test Cycle 운영, Jira Automation 적용으로 반복 작업 최소화</li>
-			<li>• 릴리즈 전 잔여 이슈 정리 및 배포 판단 기준 자료 제공 / 계약 연장 요청 수령</li>
+
+		<ul class="space-y-4">
+			<li class="space-y-1">
+				<p class="text-accent font-medium">▸ 다중 제품 QA 및 테스트 체계 구축</p>
+				<p class="text-subtext0 text-sm leading-relaxed">
+					Client 2종과 Admin 신규 클라이언트를 동시에 검증했으며, Jira Zephyr 기반 Test Case 100+를 직접 작성·확장하여 테스트 체계를 구축했습니다.
+				</p>
+			</li>
+
+			<li class="space-y-1">
+				<p class="text-text font-medium">▸ 요구사항 변경 대응 및 테스트 기준 정비</p>
+				<p class="text-subtext0 text-sm leading-relaxed">
+					화면설계서가 수시로 변경되는 환경에서 기획자와 직접 커뮤니케이션하며 요구사항을 정리하고 테스트 기준을 지속적으로 업데이트했습니다.
+				</p>
+			</li>
+
+			<li class="space-y-1">
+				<p class="text-accent font-medium">▸ 결제·세션 흐름 기반 결함 및 보안 이슈 발견</p>
+				<p class="text-subtext0 text-sm leading-relaxed">
+					콘텐츠 실결제 이후 구매 내역 미표시 결함과 세션 쿠키 Secure 미설정 취약점을 발견했습니다. DevTools, 네트워크 탭, API 응답, 예외 로그를 분석하여 수정 방향까지 포함한 이슈를 작성했습니다.
+				</p>
+			</li>
+
+			<li class="space-y-1">
+				<p class="text-text font-medium">▸ 개발 친화적 QA 협업 및 회귀 테스트 강화</p>
+				<p class="text-subtext0 text-sm leading-relaxed">
+					UI 퍼블리싱 오류 발생 시 CSS·JS 수정 포인트를 함께 전달하여 개발자가 즉시 수정할 수 있도록 지원했습니다. 로그 분석 결과를 기반으로 테스트 케이스를 확장해 유사 장애 재발을 방지했습니다.
+				</p>
+			</li>
+
+			<li class="space-y-1">
+				<p class="text-accent font-medium">▸ 성과</p>
+				<p class="text-subtext0 text-sm leading-relaxed">
+					Critical 2건·Major 36건 포함 총 179건의 결함을 등록하고 496건 이슈 대응을 수행했습니다. 계약 종료 시점 팀장 요청으로 계약이 1개월 연장되었습니다.
+				</p>
+			</li>
 		</ul>
 	</article>
 
-	<!-- ─── Soundmind ─── -->
-	<article class="space-y-6">
+	<!-- Soundmind -->
+	<article id="soundmind" class="space-y-6">
 		<header class="border-surface0 border-b pb-4">
 			<div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
 				<div>
-					<h2 class="text-text text-2xl font-bold">QA Tester</h2>
+					<h3 class="text-text text-xl font-bold">QA Tester</h3>
 					<p class="text-accent font-medium">Soundmind</p>
 				</div>
 				<span class="text-overlay1 text-sm whitespace-nowrap">Dec 2025.01 – Dec 2025.12</span>
 			</div>
 			<p class="text-subtext0 mt-2 text-sm">ERP·판매 관리 시스템 통합 테스트</p>
 		</header>
-		<ul class="text-subtext0 space-y-2 text-sm">
-			<li>• 9개 모듈 TC 1,200건 수행, 완료율 100% (PASS율 98% 이상 · Critical 0건 기준 충족)</li>
-			<li>• Critical 7건(기능 불능·데이터 유실) 포함 총 60건 결함 발견 / 수정 후 Retest 수행</li>
-			<li>• 대시보드·정책 화면 간 입금액·페이백 금융 데이터 정합성 불일치 이슈 발견 → 정산 신뢰도 개선</li>
-			<li>• 전수 조사·검색 필드 초기화 UX 개선 제안 + 매뉴얼 오탈자 60건 검수</li>
+
+		<ul class="space-y-4">
+			<li class="space-y-1">
+				<p class="text-accent font-medium">▸ ERP 통합 테스트 및 모듈 검증</p>
+				<p class="text-subtext0 text-sm leading-relaxed">
+					2주간 9개 모듈 전체에 대한 통합 테스트를 수행했습니다. 테스트 케이스 작성·수행, 결함 등록, 수정 확인 및 회귀 테스트까지 전 과정을 담당했습니다.
+				</p>
+			</li>
+
+			<li class="space-y-1">
+				<p class="text-text font-medium">▸ 데이터 정합성 및 운영 흐름 검증</p>
+				<p class="text-subtext0 text-sm leading-relaxed">
+					대시보드와 정책 화면 간 입금액·페이백 데이터 불일치 이슈를 발견하고 수치 기반 정합성 검증을 통해 정산 시스템 신뢰도 개선에 기여했습니다.
+				</p>
+			</li>
+
+			<li class="space-y-1">
+				<p class="text-text font-medium">▸ UX 및 운영 품질 개선</p>
+				<p class="text-subtext0 text-sm leading-relaxed">
+					검색 필드 초기화 UX 개선안을 제안했으며, 매뉴얼 오탈자 60건 이상을 전수 점검해 서비스 완성도를 높였습니다.
+				</p>
+			</li>
+
+			<li class="space-y-1">
+				<p class="text-accent font-medium">▸ 성과</p>
+				<p class="text-subtext0 text-sm leading-relaxed">
+					TC 1,200건 수행 및 완료율 100%를 달성했습니다. Critical 7건 포함 총 60건의 결함을 발견하고 전체 재검증 완료 후 출시 승인에 기여했습니다.
+				</p>
+			</li>
 		</ul>
 	</article>
+
+</div>
+		{/if}
+	</section>
 
 </div>
 

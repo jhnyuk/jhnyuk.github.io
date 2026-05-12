@@ -1,0 +1,51 @@
+~~~
+title = "Gong9ri"
+description = "실시간 채팅 기반 공동구매 플랫폼. Toss Payments 결제 연동 및 주문·결제 로그 관리 기능 구현."
+date = "2023-07-14"
+published = true
+featured = true
+tags = ["Java", "Spring Boot", "Thymeleaf", "Toss Payments", "AWS", "Docker", "MariaDB"]
+
+[image]
+url = "/images/projects/gong9ri.svg"
+alt = "Gong9ri 공동구매 플랫폼"
+
+[[links]]
+text = "GitHub"
+url = "https://github.com/gong9ri/gong9ri"
+icon = "github"
+
+[[links]]
+text = "Video"
+url = "https://www.youtube.com/watch?v=Ggh2COECPhQ"
+icon = "external"
+~~~
+
+## 개요
+
+실시간 채팅 기반 공동구매 플랫폼 프로젝트입니다. 공동구매 참여 인원에 따라 할인율이 증가하는 구조를 적용했으며, 사용자 간 실시간 소통 기능을 통해 공동구매 참여 경험을 강화했습니다.
+
+## 담당 기능
+
+- Toss Payments API 기반 결제 기능 구현
+- 상품 주문 및 결제 처리 로직 개발
+- 주문 상태·배송지 입력·결제 완료 로그 관리 기능 구현
+- Thymeleaf 기반 프론트엔드-백엔드 데이터 바인딩 및 화면 연동
+
+## 결제 시스템 구현
+
+- Toss Payments API 연동을 통해 안전한 결제 프로세스 구현
+- 결제 성공·실패·예외 상황에 대한 처리 로직 구성
+- 테스트 케이스 기반 결제 검증으로 안정성 확보
+
+## 트러블슈팅
+
+### Toss Payments API 연동 및 예외 처리
+
+- 다양한 요청 파라미터·응답 구조를 처리해야 하는 결제 API 연동 과정에서 예외 상황 대응 로직을 구현했습니다.
+- 결제 상태별 테스트 시나리오를 작성하고 반복 검증하여 결제 안정성을 개선했습니다.
+
+### Thymeleaf 기반 데이터 바인딩 처리
+
+- Thymeleaf 문법과 템플릿 구조를 학습하며 프론트엔드와 백엔드 간 데이터 전달 구조를 구현했습니다.
+- AJAX 기반 비동기 통신과 화면 라우팅 처리 과정에서 발생한 데이터 바인딩 문제를 해결했습니다.

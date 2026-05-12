@@ -26,9 +26,9 @@
 	<!-- Hero -->
 	<section class="space-y-5 px-4 md:px-0">
 		<h1 class="text-3xl font-bold md:text-4xl">
-			안녕하세요! 저는
-			<span class="text-accent">김지현</span>
-			입니다.
+			Hey! I'm 
+			<span class="text-accent">Jihyun Kim</span>
+			.
 		</h1>
 		<p class="text-subtext0 max-w-prose text-lg leading-relaxed">
 			<span class="text-text font-medium">Web Developer & QA Engineer</span>로 일하고 있습니다.
@@ -50,7 +50,7 @@
 			{/each}
 			<span class="text-surface1 text-xs">|</span>
 			<a
-				href="/career"
+				href="/about"
 				class="group text-subtext1 hover:text-accent inline-flex items-center gap-1 text-sm transition-colors duration-200"
 			>
 				<span>More about me</span>

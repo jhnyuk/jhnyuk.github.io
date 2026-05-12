@@ -5,6 +5,7 @@ interface NavItem {
 }
 
 export const mainNavItems: NavItem[] = [
+	{ title: 'About', href: '/about' },
 	{ title: 'Career', href: '/career' },
 	{ title: 'Projects', href: '/projects' }
 ];

@@ -1,0 +1,84 @@
+~~~
+title = "VBlog"
+description = "블로그/브이로그 추천 플랫폼. JWT/OAuth2 기반 인증, 북마크 및 마이페이지 API를 구현한 서버 프로젝트"
+date = "2023-11-14"
+published = true
+featured = true
+tags = ["Java", "Spring Boot", "Spring Security", "JWT", "AWS E2C", "MariaDB"]
+
+[image]
+url = "/images/projects/vblog.svg"
+alt = "VBlog 블로그·브이로그 추천 플랫폼"
+
+[[links]]
+text = "GitHub"
+url = "https://github.com/dmu-most/vblog-server"
+icon = "github"
+
+[[links]]
+text = "Video"
+url = "https://www.youtube.com/watch?v=Xm1KqhL-jM4&t=170s"
+icon = "external"
+~~~
+
+## 개요
+블로그와 브이로그를 하나의 플랫폼에서 탐색·스크랩할 수 있도록 기획한 콘텐츠 통합 플랫폼 프로젝트입니다.  
+사용자 관심사 기반 추천과 콘텐츠 저장 기능을 제공했으며, 인증·인가와 사용자 개인화 기능 구현에 집중했습니다.
+
+### 담당 기능 (Server)
+
+##### JWT + OAuth2 기반 인증/인가 구현
+
+- Spring Security 기반 인증 구조 설계
+- JWT 토큰 기반 로그인 및 인증 처리 구현
+- OAuth2 소셜 로그인 연동 구현
+- 토큰 기반 사용자 인증·인가 흐름 구성
+
+##### 북마크 및 폴더 관리 기능 구현
+
+- 폴더 생성 및 콘텐츠 저장 기능 개발
+- 사용자가 브이로그·블로그 콘텐츠를 스크랩하고 관리할 수 있는 북마크 로직 구현
+
+##### 프로필 및 마이페이지 API 개발
+
+- 프로필 이미지 업로드·수정·삭제 기능 구현
+- 마이페이지 리뷰 조회·수정·삭제 API 개발
+- 최근 조회 목록 API 구현
+
+---
+
+### 학습 및 성장 경험
+
+##### Spring Security 인증 흐름 이해
+
+프로젝트를 진행하며 Spring Security 동작 방식에 대해 깊이 있게 학습했습니다.
+
+단순 로그인 구현 수준을 넘어 아래 흐름을 직접 분석하고 구현했습니다.
+
+- 인증(Authentication)
+- 권한 부여(Authorization)
+- Filter Chain 동작 방식
+- JWT 토큰 검증 과정
+- Security Context 흐름
+
+이를 통해 프론트엔드와 백엔드 간 토큰 기반 인증 구조를 실제 서비스 수준에서 이해할 수 있었습니다.
+
+##### OAuth2 기반 외부 인증 연동 경험
+
+OAuth2 기반 소셜 로그인 기능을 구현하면서 외부 인증 시스템과의 연동 과정을 경험했습니다.
+
+- OAuth2 인증 플로우 이해
+- Access Token 처리
+- 사용자 정보 조회 및 매핑
+- 인증 후 JWT 발급 구조 구현
+
+보안과 인증 흐름을 함께 고려하며 API 연동 경험을 쌓을 수 있었습니다.
+
+##### 사용자 데이터 관리 경험
+
+북마크·프로필·최근 조회 목록 등 사용자 개인화 데이터를 다루면서 사용자 중심 데이터 구조와 API 설계 경험을 쌓았습니다.
+
+- 사용자별 데이터 분리
+- CRUD API 설계
+- 파일 업로드 처리
+- 사용자 활동 기반 데이터 관리 구조 구현

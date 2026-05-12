@@ -31,6 +31,7 @@ export interface ExperienceTimelineItem {
 	endDate?: string;
 	details?: string;
 	logoScale?: number;
+	careerHref?: string;
 }
 
 export const experienceTimeline: ExperienceTimelineItem[] = [
@@ -43,7 +44,8 @@ export const experienceTimeline: ExperienceTimelineItem[] = [
 		startDate: '2025-12-01',
 		endDate: '2026-02-28',
 		details:
-			'RAON Metademy QA — 39일간 빠른 릴리즈 환경에서 179건 등록·496건 대응. TC 100+ 설계·수행, 결제 흐름 검증, 보안 취약점 조기 발견.'
+			'RAON Metademy QA — 39일간 빠른 릴리즈 환경에서 179건 등록·496건 대응. TC 100+ 설계·수행, 결제 흐름 검증, 보안 취약점 조기 발견.',
+		careerHref: '/career?tab=qa#raonsecure'
 	},
 	{
 		company: 'Soundmind',
@@ -54,7 +56,8 @@ export const experienceTimeline: ExperienceTimelineItem[] = [
 		startDate: '2025-12-01',
 		endDate: '2025-12-12',
 		details:
-			'ERP·판매 관리 시스템 통합 테스트. TC 1,200건 수행(완료율 100%), Critical 7건 포함 60건 결함 발견.'
+			'ERP·판매 관리 시스템 통합 테스트. TC 1,200건 수행(완료율 100%), Critical 7건 포함 60건 결함 발견.',
+		careerHref: '/career?tab=qa#soundmind'
 	},
 	{
 		company: 'Payday',
@@ -65,6 +68,7 @@ export const experienceTimeline: ExperienceTimelineItem[] = [
 		startDate: '2024-07-01',
 		endDate: '2025-08-31',
 		details:
-			'연말정산·급여 시스템 QA 및 사내 전산 개발. 사내 업무 이력 관리 시스템(React + Spring Boot) 개발, AI 평가 검증 시스템 프론트엔드 개발.'
+			'연말정산·급여 시스템 QA 및 사내 전산 개발. 사내 업무 이력 관리 시스템(React + Spring Boot) 개발, AI 평가 검증 시스템 프론트엔드 개발.',
+		careerHref: '/career#payday'
 	}
 ];
