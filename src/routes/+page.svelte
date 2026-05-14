@@ -32,8 +32,7 @@
 		</h1>
 		<p class="text-subtext0 max-w-prose text-lg leading-relaxed">
 			<span class="text-text font-medium">Web Developer & QA Engineer</span>로 일하고 있습니다.
-			꼼꼼한 QA 경험과 React·Spring Boot 기반 웹 개발 역량을 갖추고 있습니다.
-			빠른 릴리즈 환경에서 품질을 지키는 일에 보람을 느낍니다.
+			AI가 디자인을 코드로 바꾸고, 복잡한 코드를 개선하는 동안 사람은 ‘누군가의 삶을 바꿀 새로운 가치’를 고민하는데 더 집중할 수 있도록 하고 싶습니다.
 		</p>
 		<div class="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
 			{#each Home.socialLinks as link (link.href)}
